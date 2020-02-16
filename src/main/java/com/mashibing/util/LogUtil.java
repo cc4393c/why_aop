@@ -1,23 +1,32 @@
 package com.mashibing.util;
 
+import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+@Component
+@Aspect
 public class LogUtil {
 
-    public static void start(Method method, Object... objects) {
-        System.out.println(method.getName() + " 方法开始执行，参数为：" + Arrays.asList(objects));
+    @Before("execution(public int com.mashibing.inter.MyCalculator.*(int, int))")
+    public static void start() {
+        System.out.println(" 方法开始执行，参数为：");
     }
 
-    public static void stop(Method method, Object... objects) {
-        System.out.println(method.getName() + " 方法结束执行，结果为：" + Arrays.asList(objects));
+    @AfterReturning("execution(public int com.mashibing.inter.MyCalculator.*(int, int))")
+    public static void stop() {
+        System.out.println(" 方法结束执行，结果为：");
     }
 
-    public static void logException(Method method, Exception e) {
-        System.out.println(method.getName() + " 方法出现异常：" + e.getCause());
+    @AfterThrowing("execution(public int com.mashibing.inter.MyCalculator.*(int, int))")
+    public static void logException() {
+        System.out.println(" 方法出现异常：");
     }
 
-    public static void end(Method method) {
-        System.out.println(method.getName() + " 方法执行结束了......");
+    @After("execution(public int com.mashibing.inter.MyCalculator.*(int, int))")
+    public static void end() {
+        System.out.println(" 方法执行结束了......");
     }
 }
