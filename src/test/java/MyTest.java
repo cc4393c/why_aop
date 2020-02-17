@@ -8,9 +8,11 @@ public class MyTest {
         MyCalculator bean = context.getBean(MyCalculator.class);
         System.out.println("代理对象是" + bean.getClass());
         try {
+            bean.add(1, 1);
+            System.out.println();
             bean.div(1, 0);
-        } catch (ArithmeticException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ignored) {
+
         }
     }
 }
